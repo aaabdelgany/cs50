@@ -1,0 +1,42 @@
+{% extends "abduHR/layout.html" %}
+
+{% block body %}
+
+<p class="lead">
+  You can import new employees via a csv file. The file format is as follows:
+  <ul class="list-unstyled">
+    <li>Column 1: First Name</li>
+    <li>Column 2: Last Name</li>
+    <li>Column 3: Email</li>
+    <li>Column 4: Phone Number</li>
+    <li>Column 5: The employee's status</li>
+  </ul>
+</p>
+<form action="{%url 'impemp' %}" method="POST" enctype="multipart/form-data">
+  {%if message%}
+  <div class="alert alert-danger" id="danger_new" role="alert">{{message}}</div> 
+  {%endif%}
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="formFile" class="form-label">Import new employees via a csv!</label>
+    <input class="form-control" name="file" type="file" id="formFile">
+  </div>
+
+
+<input class="btn btn-primary" type="submit" value="Submit">
+
+</form>
+
+<br>
+
+<p class="lead">
+Click the button below to generate a csv file of your current Employee Database
+</p>
+<form action="{%url 'export'%}">
+  {% csrf_token %}
+  <button type="submit" id=emp_export class="btn btn-dark"> Export Employees</button>
+</form>
+
+{% endblock %}
+
+{%load static%}

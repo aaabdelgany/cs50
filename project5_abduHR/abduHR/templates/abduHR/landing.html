@@ -1,0 +1,83 @@
+{% extends "abduHR/layout.html" %}
+
+{% block body %}
+  
+    <main class="px-3">
+      <h1>Welcome to abduHR!</h1>
+
+      <button id="new_employee" type="button" class="btn btn-primary">New Employee</button>
+      <div class="alert alert-danger" id="danger_new" role="alert" style="display:none;"></div> 
+      <form id="new_form" action="#" onsubmit="return false" class="row g-3" style="display:none;">
+        <div class="row g-3">
+            <div class="col">
+              <input type="text" class="form-control" id="first_name" placeholder="First name" name="first_name" aria-label="first_name">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" id="last_name" placeholder="Last name" name="last_name" aria-label="last_name">
+            </div>
+          </div>
+          <div class="row g-3">
+            <div class="col">
+              <input type="text" class="form-control" id="email" placeholder="email" name="email" aria-label="email">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" id="phone" placeholder="Phone Number" name="phone" aria-label="Phone Number">
+            </div>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <input class="btn btn-primary" id="new_emp_submit" type="submit" value="Submit">
+          </div>
+        </form>
+        {%if message%}
+        <div class="alert alert-warning" role="alert">
+          {{message}}
+        </div>
+        {%endif%}        
+      <form id="search_form" action="{%url 'search'%}"  method="POST">
+        {% csrf_token %}
+        <input class="form-control" id="search_input" name="search" placeholder="Type to search for an employee by email">
+      </form>
+      <div id="employee_list" class="px-3">
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item" style="flex:1;">ID</li>
+            <li class="list-group-item" style="flex:1;">Name</li>
+            <li class="list-group-item" style="flex:1;"></li>
+          </ul>
+      {%for employee in employees%}
+      <ul class="list-group list-group-horizontal-sm">
+        <li class="list-group-item" style="flex:1;">{{employee.id}}</li>
+        <li class="list-group-item " style="flex:1;">{%if not employee.active%}<s>{%endif%}{{employee.last_name}}, {{employee.first_name}}{%if not employee.active%}</s>{%endif%}</li>
+        <li class="list-group-item" style="flex:1;"><a href="/abduHR/edit/{{employee.id}}">Edit Employee</a></li>
+      </ul>      {%endfor%}
+      </div>
+
+
+      <div class="px-3">
+        <nav aria-label="Pagination">
+           <ul class="pagination">
+               {% if employees.has_previous %}
+               <li class="page-item"><a class="page-link" href="?page={{employees.previous_page_number}}">Previous</a></li>
+               {%endif%}
+             {%for i in employees.paginator.page_range%}
+             
+             <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+             {%endfor%}
+           </ul>
+         </nav>
+        </div>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              # of Employees per page
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="/abduHR/landing?num=10">10</a></li>
+              <li><a class="dropdown-item" href="/abduHR/landing?num=25">25</a></li>
+              <li><a class="dropdown-item" href="/abduHR/landing?num=50">50</a></li>
+            </ul>
+          </div>
+    </main>
+    
+
+    
+  
+{% endblock %}
+{%load static%}

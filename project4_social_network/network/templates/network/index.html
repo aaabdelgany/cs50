@@ -1,0 +1,39 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <span id="user" data-user={{myuser}} style="display:none"></span>
+    {%if myuser%}
+    <button id="new_button">New Post</button>
+    {%endif%}
+    <div id="new_post" style="display:none">
+        <form action="{%url 'new'%}" method="post" id="new_post_form">
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <div id="all_posts">
+    {%for post in Posts%}
+        <div class='post' data-owner={{post.username}} data-id={{post.id}}><a href="{%url 'user' post.username%}">{{post.username}}</a> at {{post.timestamp}}:  <span class='body'>{{post.content}}</span>
+        {%if myuser%}
+        <span class='likes'>{{post.num_likes}} People like this post</span><button class='like' data-id={{post.id}}></button>
+        {%endif%}
+        </div>
+    {%endfor%}
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if Posts.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{Posts.previous_page_number}}">Previous</a></li>
+            {%endif%}
+          {%for i in Posts.paginator.page_range%}
+          
+          <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+          {%endfor%}
+        </ul>
+      </nav>
+
+{% endblock %}
+
+{%load static%}

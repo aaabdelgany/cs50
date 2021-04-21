@@ -1,0 +1,49 @@
+{% extends "abduHR/layout.html" %}
+
+{% block body %}
+
+<main class="px-3">
+    <h1 class="display-2">Inactive Employees</h1>
+
+      
+      <div id="employee_list" class="px-3">
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item" style="flex:1;">ID</li>
+            <li class="list-group-item" style="flex:1;">Name</li>
+            <li class="list-group-item" style="flex:1;"></li>
+          </ul>
+      {%for employee in employees%}
+      <ul class="list-group list-group-horizontal-sm">
+        <li class="list-group-item" style="flex:1;">{{employee.id}}</li>
+        <li class="list-group-item " style="flex:1;">{{employee.last_name}}, {{employee.first_name}}</li>
+        <li class="list-group-item" style="flex:1;"><a href="/abduHR/edit/{{employee.id}}">Edit Employee</a></li>
+      </ul>      {%endfor%}
+      </div>
+
+
+      <div id="employee_list" class="px-3">
+        <nav aria-label="Pagination">
+           <ul class="pagination">
+               {% if employees.has_previous %}
+               <li class="page-item"><a class="page-link" href="?page={{employees.previous_page_number}}">Previous</a></li>
+               {%endif%}
+             {%for i in employees.paginator.page_range%}
+             
+             <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+             {%endfor%}
+           </ul>
+         </nav>
+        </div>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              # of Employees per page
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="/abduHR/landing?num=10">10</a></li>
+              <li><a class="dropdown-item" href="/abduHR/landing?num=25">25</a></li>
+              <li><a class="dropdown-item" href="/abduHR/landing?num=50">50</a></li>
+            </ul>
+          </div>
+    </main>
+{% endblock %}
+{%load static%}

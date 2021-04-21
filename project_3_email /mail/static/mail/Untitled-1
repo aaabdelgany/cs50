@@ -1,0 +1,6 @@
+fetch('/emails/30', {
+  method: 'PUT',
+  body: JSON.stringify({
+      read: true
+  })
+})

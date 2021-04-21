@@ -1,0 +1,23 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<h1>{{followed}}</h1>
+    <h3 id="follows-count">Follows: {{user_follows}}</h3>
+    <h3 id="followed-count">Followed by {{user_followed}}</h3>
+    {%if follower%}
+    {% if not self%}
+    {%if not follows%}
+    <button id="follow" data-follower={{follower}} data-followed={{followed}}>Follow me!</button>
+    <button id="unfollow" data-follower={{follower}} data-followed={{followed}} style="display:none">Unfollow me!</button>
+    {%else%}
+    <button id="unfollow" data-follower={{follower}} data-followed={{followed}}>Unfollow me!</button>
+    <button id="follow" style="display:none" data-follower={{follower}} data-followed={{followed}}>Follow me!</button>
+    {%endif%}
+    {%endif%}
+    {%endif%}
+
+{%for post in Posts%}
+        <li>{{post.username}} at {{post.timestamp}}:  {{post.content}}</li>
+{%endfor%}
+
+{% endblock %}

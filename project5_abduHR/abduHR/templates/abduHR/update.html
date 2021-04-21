@@ -1,0 +1,22 @@
+{% extends "abduHR/layout.html" %}
+
+{% block body %}
+
+<form action="{%url 'update' %}" method="POST" enctype="multipart/form-data">
+  {%if message%}
+  <div class="alert alert-danger" id="danger_new" role="alert">{{message}}</div> 
+  {%endif%}
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="formFile" class="form-label">Update current employees via a csv!</label>
+    <input class="form-control" name="file" type="file" id="formFile">
+  </div>
+
+<input class="btn btn-primary" type="submit" value="Submit">
+
+</form>
+
+
+{% endblock %}
+
+{%load static%}
