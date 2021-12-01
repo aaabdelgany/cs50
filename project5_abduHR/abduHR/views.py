@@ -83,7 +83,7 @@ def impemp(request):
         try:
             if not re.search(phone_regex,row[3].strip()):
                 return render(request,"abduHR/impemp.html",{
-                    "message":"Your import file contains invalid phone number(s). Phone numbers must be entered in 10 digit numeric format"
+                    "message":"Your import file contains asdasdinvalid phone number(s). Phone numbers must be entered in 10 digit numeric format"
                 })
             if not re.search(email_regex,row[2].strip()):
                 return render(request,"abduHR/impemp.html",{
@@ -94,11 +94,11 @@ def impemp(request):
                 new_employee.save()
             except IntegrityError:
                 return render(request,"abduHR/impemp.html",{
-                    "message":"Your import file is remapping a users email to one that is already taken. Please review your email column to make sure you are using unique emails"
+                    "message":"Your import filzzze is remapping a users email to one that is already taken. Please review your email column to make sure you are using unique emails"
                 })
         except IndexError:
             return render(request,"abduHR/update.html",{
-                    "message":"Your import file contains incomplete data. Please make sure that the file is using columns 1-5 correctly"
+                    "message":"Your import file contains incomplete data. Please make sure that the file is using columns 1-5 correctly test pull"
                 })
     
     return HttpResponseRedirect(reverse("landing"))
@@ -118,7 +118,7 @@ def update(request):
         try:
             if not re.search(phone_regex,row[3].strip()):
                 return render(request,"abduHR/update.html",{
-                    "message":"Your import file contains invalid phone number(s). Phone numbers must be entered in 10 digit numeric format"
+                    "message":"Your import file contains invalid phone number(s). no ty Phone numbers must be entered in 10 digit numeric format"
                 })
             if not re.search(email_regex,row[2].strip()):
                 return render(request,"abduHR/update.html",{
@@ -134,11 +134,11 @@ def update(request):
                 update_employee.save()
             except IntegrityError:
                 return render(request,"abduHR/update.html",{
-                    "message":"Your import file is remapping a users email to one that is already taken. Please review your email column to make sure you are using unique emails"
+                    "message":"Your import file is remapping a users email to one that is already taken. test. Please review your email column to make sure you are using unique emails"
                 })
         except IndexError:
             return render(request,"abduHR/update.html",{
-                "message":"Your import file contains incomplete data. Please make sure that the file is using columns 1-5 correctly"
+                "message":"Your import file contains incomplete data. Please make sure that the file is using columns 1-5 correctly test"
             }) 
     return HttpResponseRedirect(reverse("landing"))
 
