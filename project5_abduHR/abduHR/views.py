@@ -84,6 +84,7 @@ def impemp(request):
             if not re.search(phone_regex,row[3].strip()):
                 return render(request,"abduHR/impemp.html",{
                     "message":"Your import file contains asdasdinvalid phone number(s). Phone numbers must be entered in 10 digit numeric format"
+                    #testing nah
                 })
             if not re.search(email_regex,row[2].strip()):
                 return render(request,"abduHR/impemp.html",{
